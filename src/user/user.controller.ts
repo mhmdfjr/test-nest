@@ -16,27 +16,14 @@ import { UserService } from './user.service.js';
 import { RoleGuard } from '../guards/role.guard.js';
 
 @Controller('user')
-// @UseGuards(RoleGuard)
+// @UseGuards(RoleGuard) // Global Route Guards
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get() // GET /user
+  @UseGuards(RoleGuard) // Route Guards
   getUsers(@Query('name') name: string): unknown {
     return this.userService.findAllUsers(name);
-
-    // const users = [
-    //   { id: '1', name: 'John', adress: 'USA' },
-    //   { id: '2', name: 'Maria', adress: 'USA' },
-    //   { id: '3', name: 'Smith', adress: 'USA' },
-    // ];
-
-    // if (name) {
-    //   return users.filter((user) =>
-    //     user.name.toLowerCase().includes(name.toLowerCase()),
-    //   );
-    // }
-
-    // return users;
   }
 
   @Get(':id') // GET /user/:id

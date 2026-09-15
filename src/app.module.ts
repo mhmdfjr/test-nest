@@ -5,6 +5,7 @@ import { AppService } from './app.service.js';
 import { UserModule } from './user/user.module.js';
 import { ApiKeyMiddleware } from './middleware/api-key.middleware.js';
 import { UserController } from './user/user.controller.js';
+import { AdminModule } from './admin/admin.module.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -16,6 +17,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
       serviceId: 'medicore',
     }),
     UserModule,
+    AdminModule,
   ],
   controllers: [AppController],
   providers: [AppService],
