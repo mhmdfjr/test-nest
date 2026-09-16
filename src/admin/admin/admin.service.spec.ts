@@ -1,0 +1,24 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { AdminService } from './admin.service.js';
+
+describe('AdminService', () => {
+  let service: AdminService;
+
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [AdminService],
+    }).compile();
+
+    service = module.get<AdminService>(AdminService);
+  });
+
+  it('should be defined', () => {
+    expect(service).toBeDefined();
+  });
+
+  it('should can say hello', () => {
+    const response = service.sayHello('Hasan');
+
+    expect(response).toBe('Hello Hasan');
+  });
+});
