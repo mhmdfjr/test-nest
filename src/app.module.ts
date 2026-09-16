@@ -6,6 +6,7 @@ import { UserModule } from './user/user.module.js';
 import { ApiKeyMiddleware } from './middleware/api-key.middleware.js';
 import { UserController } from './user/user.controller.js';
 import { AdminModule } from './admin/admin.module.js';
+import { ConfigModule } from '@nestjs/config';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -15,6 +16,9 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
       appKey: 'YOUR_APP_KEY',
       appSecret: 'YOUR_APP_SECRET',
       serviceId: 'medicore',
+    }),
+    ConfigModule.forRoot({
+      isGlobal: true,
     }),
     UserModule,
     AdminModule,

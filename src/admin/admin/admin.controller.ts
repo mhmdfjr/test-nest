@@ -1,12 +1,35 @@
 import { Controller, Get, Inject, Query, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { AdminService } from './admin.service.js';
+import { Connection } from '../connection/connection.js';
+import { MailService } from '../mail/mail.service.js';
+import { Repository } from '../repository/repository.js';
+import { MemberService } from '../member/member.service.js';
 
 @Controller('/api/admin')
 export class AdminController {
   //   @Inject()
   //   private adminService: AdminService; // property injection
-  constructor(private readonly adminService: AdminService) {} // constructor injection
+  constructor(
+    private adminService: AdminService,
+    private connection: Connection,
+    private mailService: MailService,
+    @Inject('EmailService') private emailService: MailService,
+    private repository: Repository,
+    private memberService: MemberService,
+  ) {} // constructor injection
+
+  @Get('/connection')
+  async getConnection(): Promise<string> {
+    this.mailService.send();
+    this.emailService.send();
+    this.repository.save();
+
+    console.info(this.memberService.getConnectionName());
+    this.memberService.sendEmail();
+
+    return this.connection.getName();
+  }
 
   @Get()
   async sayHello(): Promise<string> {
